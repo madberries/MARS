@@ -1,14 +1,15 @@
 from __future__ import division
 import torch
 from torch import nn
-from models import resnext
+#from .models import resnext
+from . import resnext
 import pdb
 
 def generate_model( opt):
     assert opt.model in ['resnext']
     assert opt.model_depth in [101]
 
-    from models.resnext import get_fine_tuning_parameters
+    from .resnext import get_fine_tuning_parameters
     model = resnext.resnet101(
             num_classes=opt.n_classes,
             shortcut_type=opt.resnet_shortcut,
