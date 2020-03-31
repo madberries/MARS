@@ -20,7 +20,6 @@ def generate_model( opt):
             output_layers=opt.output_layers)
     
 
-    model = model.cuda()
     model = nn.DataParallel(model)
     
     if opt.pretrain_path:
@@ -30,7 +29,6 @@ def generate_model( opt):
         assert opt.arch == pretrain['arch']
         model.load_state_dict(pretrain['state_dict'])
         model.module.fc = nn.Linear(model.module.fc.in_features, opt.n_finetune_classes)
-        model.module.fc = model.module.fc.cuda()
 
         parameters = get_fine_tuning_parameters(model, opt.ft_begin_index)
         return model, parameters
