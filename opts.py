@@ -1,7 +1,6 @@
 import argparse
 
-
-def parse_opts():
+def parse_opts(arguments=None):
     parser = argparse.ArgumentParser()
     # Datasets 
     parser.add_argument(
@@ -223,6 +222,9 @@ def parse_opts():
     parser.add_argument(
         '--random_seed', default=1, type=bool, help='Manually set random seed of sampling validation clip')
     
-    args = parser.parse_args()
+    if arguments is None:
+        args = parser.parse_args()
+    else:
+        args = parser.parse_args(arguments)
 
     return args
