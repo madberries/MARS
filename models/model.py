@@ -5,6 +5,9 @@ from torch import nn
 from . import resnext
 import pdb
 
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+
 def generate_model( opt):
     assert opt.model in ['resnext']
     assert opt.model_depth in [101]
@@ -24,7 +27,7 @@ def generate_model( opt):
     
     if opt.pretrain_path:
         print('loading pretrained model {}'.format(opt.pretrain_path))
-        pretrain = torch.load(opt.pretrain_path)
+        pretrain = torch.load(opt.pretrain_path, map_location=DEVICE)
         
         assert opt.arch == pretrain['arch']
         model.load_state_dict(pretrain['state_dict'])
